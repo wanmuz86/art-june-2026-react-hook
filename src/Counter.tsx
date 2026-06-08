@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 
 
 const Counter: React.FC = () => {
@@ -14,12 +14,47 @@ const [counter,setCounter] = useState<number>(0);
 // that will update the state accordingly
 // The component will be rendered/ Part of UI is refreshed
 
-const increment = () => setCounter(counter+1)
+const increment = () => {
+    if (counter >= 0 ){
+    setCounter(counter+1)
+    }
+
+}
 const decrement = () => setCounter(counter-1);
+
+
+// useEffect without []
+// This will be called evertime the component is re-rendered
+// useEffect(()=>{
+//     console.log(counter);
+// })
+
+// useEffect with []
+// Only be called the first time
+// useEffect(()=>{
+//     console.log(counter);
+// },[])
+
+// useEffect with [counter]
+// When the counter value change
+// Example use case -> You pass props, and the prop value change to trigger a function call
+useEffect(()=>{
+    console.log(counter);
+},[counter])
+
+// useEffect with return
+// When the component is about to go away
+
+useEffect(()=> {
+    return () => {
+        /// Tthis is where you clean the resources ...
+    }
+})
+
   return (
-    <div>
+    <div style={{backgroundColor:'red'}}>
         {/* Retrieving the value of coutner using getter */}
-        <h1>Counter: {counter}</h1>
+        <h1 style={{fontSize:'32px'}}>Counter: {counter}</h1>
         <button onClick={increment}>Increment</button>
         <button onClick={decrement}>Decrement</button>
     </div>
